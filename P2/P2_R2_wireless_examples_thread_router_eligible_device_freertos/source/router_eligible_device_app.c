@@ -92,7 +92,7 @@ Private macros
 /* ML-EID (ML64) of the Leader node, copied from "ifconfig" on the Leader.
  * It must be updated whenever the network is re-created, because the mesh-local
  * prefix is randomly generated at network creation. */
-#define APP_LEADER_ADDR_STR    "fd57:3f4f:fa8b:7c:bc72:a007:a0b1:5825"
+#define APP_LEADER_ADDR_STR    "fd28:9df1:654b:ee1d:fc3f:ca2d:a981:1cf2"
 
 /* Period between counter requests sent to the Leader. */
 #define APP_REQUEST_PERIOD_MS    2000
@@ -160,6 +160,9 @@ static void APP_SendCounterRequest(ipAddr_t *pServerAddr, coapMessageTypes_t msg
 
 // TMR Callbacks
 static void APP_CoapStopMyTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
+static void APP_CoapRestartTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
+static void APP_CoapStartTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
+static void APP_CoapStopTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 
 
 #if LARGE_NETWORK
@@ -690,6 +693,9 @@ static void APP_InitCoapDemo
     coapRegCbParams_t cbParams[] =  {{APP_CoapLedCb,  (coapUriPath_t *)&gAPP_LED_URI_PATH},
                                      {APP_CoapTempCb, (coapUriPath_t *)&gAPP_TEMP_URI_PATH},
 									 {APP_CoapStopMyTmrCb, (coapUriPath_t*)&gAPP_STOP_MY_TMR_URI_PATH},
+									 {APP_CoapStopTmrRxCb, (coapUriPath_t*)&gAPP_STOP_TMR_URI_PATH},
+									 {APP_CoapStartTmrRxCb, (coapUriPath_t*)&gAPP_START_TMR_URI_PATH},
+									 {APP_CoapRestartTmrRxCb, (coapUriPath_t*)&gAPP_RESTART_TMR_URI_PATH},
 #if LARGE_NETWORK
                                      {APP_CoapResetToFactoryDefaultsCb, (coapUriPath_t *)&gAPP_RESET_URI_PATH},
 #endif
@@ -1687,6 +1693,22 @@ static void APP_AutoStartCb
 Private debug functions
 ==================================================================================================*/
 
+/* Print: "<msg> from <IP> type CON/NON <label>= <count>" */
+static void APP_PrintTmrInfo(coapSession_t *pSession, const char *msg,
+                             const char *label, uint32_t count)
+{
+  char addrStr[INET6_ADDRSTRLEN];
+
+  /* Convert the sender's IPv6 address to text */
+  ntop(AF_INET6, (ipAddr_t*)&pSession->remoteAddrStorage.ss_addr, addrStr, INET6_ADDRSTRLEN);
+
+  /* Show the message type (CON or NON) and the count */
+  shell_printf("%s from %s type %s %s= %u\r\n", msg, addrStr,
+               (pSession->msgType == gCoapConfirmable_c) ? "CON" : "NON",
+               label, count);
+}
+
+
 /* Send an ACK only if the request was CON.
    The received session closes by itself after the callback ends*/
 static void APP_ReplyIfCon(coapSessionStatus_t status, coapSession_t *pSession)
@@ -1701,5 +1723,29 @@ static void APP_ReplyIfCon(coapSessionStatus_t status, coapSession_t *pSession)
 static void APP_CoapStopMyTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
   TMR_StopTimer(mRequestTimerId);
   shell_write("My request timer stopped\r\n");
+  APP_ReplyIfCon(sessionStatus, pSession);
+}
+
+static void APP_CoapStopTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
+  if ((NULL != pData) && (dataLen >= 1))
+  {
+    APP_PrintTmrInfo(pSession, "Timer stopped", "Count", pData[0]);
+  }
+  APP_ReplyIfCon(sessionStatus, pSession);   /* ACK if the leader sent CON */
+}
+
+static void APP_CoapStartTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
+  if ((NULL != pData) && (dataLen >= 1))
+  {
+    APP_PrintTmrInfo(pSession, "Timer started", "starting Count", pData[0]);
+  }
+  APP_ReplyIfCon(sessionStatus, pSession);
+}
+
+static void APP_CoapRestartTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
+  if ((NULL != pData) && (dataLen >= 1))
+  {
+    APP_PrintTmrInfo(pSession, "Timer started", "starting Count", pData[0]);
+  }
   APP_ReplyIfCon(sessionStatus, pSession);
 }

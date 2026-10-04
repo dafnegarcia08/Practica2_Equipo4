@@ -1619,6 +1619,50 @@ static void APP_AutoStartCb
 Private debug functions
 ==================================================================================================*/
 
+/* Called in the Leader when the requester answers our notification */
+static void APP_CoapNotifyAckCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
+  char addrStr[INET6_ADDRSTRLEN];
+
+  ntop(AF_INET6, (ipAddr_t*)&pSession->remoteAddrStorage.ss_addr, addrStr, INET6_ADDRSTRLEN);
+
+  if (gCoapFailure_c == sessionStatus)
+  {
+    shell_printf("Notify to %s failed (no ACK)\r\n", addrStr);
+  }
+  else
+  {
+    shell_printf("ACK received from %s\r\n", addrStr);
+  }
+}
+
+
+/* Send the count to the node that made the request, with the SAME type (CON or NON).
+   The session closes by itself: after sending (NON) or after the ACK (CON). */
+static void APP_NotifyRequester(coapSession_t *pRequest, const coapUriPath_t *pUri)
+{
+  static uint8_t notifyCount;   /* static so it stays valid while the stack sends it */
+  coapSession_t *pMySession = COAP_OpenSession(mAppCoapInstId);
+
+  if (NULL == pMySession)
+  {
+    return;
+  }
+
+  notifyCount = (uint8_t)mTeamCounter;
+
+  /* Destination: whoever sent us the request */
+  FLib_MemCpy(&pMySession->remoteAddrStorage.ss_addr,
+              &pRequest->remoteAddrStorage.ss_addr, sizeof(ipAddr_t));
+  pMySession->msgType   = pRequest->msgType;   /* same type as the request */
+  pMySession->code      = gCoapPOST_c;
+  COAP_SetCallback(pMySession, APP_CoapNotifyAckCb);   /* instead of pCallback = NULL */
+  COAP_SetUriPath(pMySession, (coapUriPath_t *)pUri);
+
+  /* Send with the values stored in the session */
+  COAP_Send(pMySession, gCoapMsgTypeUseSessionValues_c, &notifyCount, sizeof(notifyCount));
+}
+
+
 /* Print: "<msg> from <IP> type CON/NON <label>= <count>" */
 static void APP_PrintTmrInfo(coapSession_t *pSession, const char *msg,
                              const char *label, uint32_t count)
@@ -1634,20 +1678,24 @@ static void APP_PrintTmrInfo(coapSession_t *pSession, const char *msg,
                label, count);
 }
 
-/* Send an ACK only if the request was CON.
-   The received session closes by itself after the callback ends*/
+/* Send an empty ACK only if the request was CON.
+   The received session closes by itself after the callback ends */
 static void APP_ReplyIfCon(coapSessionStatus_t status, coapSession_t *pSession)
 {
+
   if ((pSession->msgType == gCoapConfirmable_c) && (status != gCoapFailure_c))
   {
     COAP_Send(pSession, gCoapMsgTypeAckSuccessChanged_c, NULL, 0);
   }
 }
 
+
+
 /* /stopTmr : stop the leader timer, but keep the count value */
 static void APP_CoapStopTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
 	TMR_StopTimer(mTeamTimerId);
 	APP_PrintTmrInfo(pSession, "Timer stopped", "Count", mTeamCounter);
+	APP_NotifyRequester(pSession, &gAPP_STOP_TMR_URI_PATH);      /* in APP_CoapStopTmrCb */
 	APP_ReplyIfCon(sessionStatus, pSession);
 }
 
@@ -1657,6 +1705,7 @@ static void APP_CoapStartTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData
 	mTeamCounter   = 0;  /* Always begin from zero */
 	TMR_StartIntervalTimer(mTeamTimerId, APP_COUNTER_PERIOD_MS, APP_TeamTimerCb, NULL);
 	APP_PrintTmrInfo(pSession, "Timer started", "starting Count", mTeamCounter);
+	APP_NotifyRequester(pSession, &gAPP_START_TMR_URI_PATH);     /* in APP_CoapStartTmrCb */
 	APP_ReplyIfCon(sessionStatus, pSession);
 }
 
@@ -1665,6 +1714,7 @@ static void APP_CoapStartTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData
 static void APP_CoapRestartTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
 	TMR_StartIntervalTimer(mTeamTimerId, APP_COUNTER_PERIOD_MS, APP_TeamTimerCb, NULL);
 	APP_PrintTmrInfo(pSession, "Timer started", "starting Count", mTeamCounter);
+	APP_NotifyRequester(pSession, &gAPP_RESTART_TMR_URI_PATH);   /* in APP_CoapRestartTmrCb */
 	APP_ReplyIfCon(sessionStatus, pSession);
 }
 
