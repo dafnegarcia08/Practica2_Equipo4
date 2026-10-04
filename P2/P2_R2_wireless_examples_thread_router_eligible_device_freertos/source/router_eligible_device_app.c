@@ -83,10 +83,16 @@ Private macros
 /* define the URI path team 4 */
 #define APP_TEAM_URI_PATH    "/team4"
 
+// TMR URI PATH
+#define APP_STOP_MY_TMR_URI_PATH                "/stopMyTmr"
+#define APP_STOP_TMR_URI_PATH                   "/stopTmr"
+#define APP_START_TMR_URI_PATH					"/startTmr"
+#define APP_RESTART_TMR_URI_PATH           		"/restartTmr"
+
 /* ML-EID (ML64) of the Leader node, copied from "ifconfig" on the Leader.
  * It must be updated whenever the network is re-created, because the mesh-local
  * prefix is randomly generated at network creation. */
-#define APP_LEADER_ADDR_STR    "fd00:f86f:63ba:fa0d:1c4:dcda:6475:63ed"
+#define APP_LEADER_ADDR_STR    "fd57:3f4f:fa8b:7c:bc72:a007:a0b1:5825"
 
 /* Period between counter requests sent to the Leader. */
 #define APP_REQUEST_PERIOD_MS    2000
@@ -152,6 +158,10 @@ static void APP_StartCounterRequests(void);
 /* Sends one GET request for the counter resource to the Leader. */
 static void APP_SendCounterRequest(ipAddr_t *pServerAddr, coapMessageTypes_t msgType);
 
+// TMR Callbacks
+static void APP_CoapStopMyTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
+
+
 #if LARGE_NETWORK
 static void APP_CoapResetToFactoryDefaultsCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void APP_SendResetToFactoryCommand(uint8_t *param);
@@ -173,6 +183,13 @@ const coapUriPath_t gAPP_TEAM_URI_PATH = {SizeOfString(APP_TEAM_URI_PATH), (uint
 
 /* Type of the last request sent; used to label the printed reply. */
 static coapMessageTypes_t mLastRequestType = gCoapConfirmable_c;
+
+// New Path off TMR resources
+const coapUriPath_t gAPP_STOP_MY_TMR_URI_PATH = {SizeOfString(APP_STOP_MY_TMR_URI_PATH), (uint8_t *)APP_STOP_MY_TMR_URI_PATH};
+const coapUriPath_t gAPP_STOP_TMR_URI_PATH = {SizeOfString(APP_STOP_TMR_URI_PATH), (uint8_t *)APP_STOP_TMR_URI_PATH};
+const coapUriPath_t gAPP_START_TMR_URI_PATH = {SizeOfString(APP_START_TMR_URI_PATH), (uint8_t *)APP_START_TMR_URI_PATH};
+const coapUriPath_t gAPP_RESTART_TMR_URI_PATH = {SizeOfString(APP_RESTART_TMR_URI_PATH), (uint8_t *)APP_RESTART_TMR_URI_PATH};
+
 
 #if LARGE_NETWORK
 const coapUriPath_t gAPP_RESET_URI_PATH = {SizeOfString(APP_RESET_TO_FACTORY_URI_PATH), (uint8_t *)APP_RESET_TO_FACTORY_URI_PATH};
@@ -672,6 +689,7 @@ static void APP_InitCoapDemo
 {
     coapRegCbParams_t cbParams[] =  {{APP_CoapLedCb,  (coapUriPath_t *)&gAPP_LED_URI_PATH},
                                      {APP_CoapTempCb, (coapUriPath_t *)&gAPP_TEMP_URI_PATH},
+									 {APP_CoapStopMyTmrCb, (coapUriPath_t*)&gAPP_STOP_MY_TMR_URI_PATH},
 #if LARGE_NETWORK
                                      {APP_CoapResetToFactoryDefaultsCb, (coapUriPath_t *)&gAPP_RESET_URI_PATH},
 #endif
@@ -1668,3 +1686,20 @@ static void APP_AutoStartCb
 /*==================================================================================================
 Private debug functions
 ==================================================================================================*/
+
+/* Send an ACK only if the request was CON.
+   The received session closes by itself after the callback ends*/
+static void APP_ReplyIfCon(coapSessionStatus_t status, coapSession_t *pSession)
+{
+  if ((pSession->msgType == gCoapConfirmable_c) && (status != gCoapFailure_c))
+  {
+    COAP_Send(pSession, gCoapMsgTypeAckSuccessChanged_c, NULL, 0);
+  }
+}
+
+/* /stopMyTmr : stop the local timer that sends requests to the leader */
+static void APP_CoapStopMyTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
+  TMR_StopTimer(mRequestTimerId);
+  shell_write("My request timer stopped\r\n");
+  APP_ReplyIfCon(sessionStatus, pSession);
+}

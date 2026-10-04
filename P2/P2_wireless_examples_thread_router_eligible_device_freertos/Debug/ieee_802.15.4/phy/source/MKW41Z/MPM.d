@@ -1,43 +1,43 @@
 ieee_802.15.4/phy/source/MKW41Z/MPM.o \
  ieee_802.15.4/phy/source/MKW41Z/MPM.d: \
  ../ieee_802.15.4/phy/source/MKW41Z/MPM.c \
- C:/Users/fabri/Documents/ITESO/Noveno\ Semestre/Redes/Practica\ 2/P2_wireless_examples_thread_router_eligible_device_freertos/source/config.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_config.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_stack_config.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/thread_stack_config.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_framework_config.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_mac_config.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\common/EmbeddedTypes.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/MpmInterface.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyInterface.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyTypes.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyMessages.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Messaging\Interface/Messaging.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Lists/GenericList.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\MemManager\Interface/MemManager.h \
+ C:/Redes_ITESO/Practica2_Equipo4/P2/P2_wireless_examples_thread_router_eligible_device_freertos/source/config.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_config.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_stack_config.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/thread_stack_config.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_framework_config.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_mac_config.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\common/EmbeddedTypes.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/MpmInterface.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyInterface.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyTypes.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyMessages.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Messaging\Interface/Messaging.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Lists/GenericList.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\MemManager\Interface/MemManager.h \
  ../ieee_802.15.4/phy/source/MKW41Z/Phy.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyInterface.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction_config.h \
- C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\FunctionLib/FunctionLib.h
-C:/Users/fabri/Documents/ITESO/Noveno\ Semestre/Redes/Practica\ 2/P2_wireless_examples_thread_router_eligible_device_freertos/source/config.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_config.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_stack_config.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/thread_stack_config.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_framework_config.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_mac_config.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\common/EmbeddedTypes.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/MpmInterface.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyInterface.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyTypes.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyMessages.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Messaging\Interface/Messaging.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Lists/GenericList.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\MemManager\Interface/MemManager.h:
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyInterface.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction_config.h \
+ C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\FunctionLib/FunctionLib.h
+C:/Redes_ITESO/Practica2_Equipo4/P2/P2_wireless_examples_thread_router_eligible_device_freertos/source/config.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_config.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_stack_config.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/thread_stack_config.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_framework_config.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_mac_config.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\common/EmbeddedTypes.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/MpmInterface.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyInterface.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyTypes.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyMessages.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Messaging\Interface/Messaging.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Lists/GenericList.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\MemManager\Interface/MemManager.h:
 ../ieee_802.15.4/phy/source/MKW41Z/Phy.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyInterface.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction_config.h:
-C:\Users\fabri\Documents\ITESO\Noveno\ Semestre\Redes\Practica\ 2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\FunctionLib/FunctionLib.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\ieee_802.15.4\phy\interface/PhyInterface.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction_config.h:
+C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\FunctionLib/FunctionLib.h:

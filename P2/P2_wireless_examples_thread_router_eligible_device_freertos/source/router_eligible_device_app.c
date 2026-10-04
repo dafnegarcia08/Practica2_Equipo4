@@ -83,6 +83,12 @@ Private macros
 /* define the URI path team 4 */
 #define APP_TEAM_URI_PATH    "/team4"
 
+// TMR URI PATH
+#define APP_STOP_MY_TMR_URI_PATH                "/stopMyTmr"
+#define APP_STOP_TMR_URI_PATH                   "/stopTmr"
+#define APP_START_TMR_URI_PATH					"/startTmr"
+#define APP_RESTART_TMR_URI_PATH           		"/restartTmr"
+
 /* Counter limits and update period for the team URI resource. */
 #define APP_COUNTER_MAX          150
 #define APP_COUNTER_PERIOD_MS    1000
@@ -137,6 +143,12 @@ static void App_RestoreLeaderLed(uint8_t *param);
 /* callback prototype */
 static void APP_CoapTeamCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 
+// TMR Callbacks
+static void APP_CoapStopTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
+static void APP_CoapStartTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
+static void APP_CoapRestartTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
+
+
 #if LARGE_NETWORK
 static void APP_CoapResetToFactoryDefaultsCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void APP_SendResetToFactoryCommand(uint8_t *param);
@@ -158,6 +170,13 @@ const coapUriPath_t gAPP_TEAM_URI_PATH = {SizeOfString(APP_TEAM_URI_PATH), (uint
 
 /* ID of the interval timer that updates the counter. */
 static tmrTimerID_t mTeamTimerId = gTmrInvalidTimerID_c;
+
+// New Path off TMR resources
+const coapUriPath_t gAPP_STOP_MY_TMR_URI_PATH = {SizeOfString(APP_STOP_MY_TMR_URI_PATH), (uint8_t *)APP_STOP_MY_TMR_URI_PATH};
+const coapUriPath_t gAPP_STOP_TMR_URI_PATH = {SizeOfString(APP_STOP_TMR_URI_PATH), (uint8_t *)APP_STOP_TMR_URI_PATH};
+const coapUriPath_t gAPP_START_TMR_URI_PATH = {SizeOfString(APP_START_TMR_URI_PATH), (uint8_t *)APP_START_TMR_URI_PATH};
+const coapUriPath_t gAPP_RESTART_TMR_URI_PATH = {SizeOfString(APP_RESTART_TMR_URI_PATH), (uint8_t *)APP_RESTART_TMR_URI_PATH};
+
 
 #if LARGE_NETWORK
 const coapUriPath_t gAPP_RESET_URI_PATH = {SizeOfString(APP_RESET_TO_FACTORY_URI_PATH), (uint8_t *)APP_RESET_TO_FACTORY_URI_PATH};
@@ -586,6 +605,9 @@ static void APP_InitCoapDemo
     coapRegCbParams_t cbParams[] =  {{APP_CoapLedCb,  (coapUriPath_t *)&gAPP_LED_URI_PATH},
                                      {APP_CoapTempCb, (coapUriPath_t *)&gAPP_TEMP_URI_PATH},
 									 {APP_CoapTeamCb, (coapUriPath_t*)&gAPP_TEAM_URI_PATH}, // Register the callback in the CoAP callback array
+									 {APP_CoapStopTmrCb, (coapUriPath_t*)&gAPP_STOP_TMR_URI_PATH},
+									 {APP_CoapStartTmrCb, (coapUriPath_t*)&gAPP_START_TMR_URI_PATH},
+									 {APP_CoapRestartTmrCb, (coapUriPath_t*)&gAPP_RESTART_TMR_URI_PATH},
 #if LARGE_NETWORK
                                      {APP_CoapResetToFactoryDefaultsCb, (coapUriPath_t *)&gAPP_RESET_URI_PATH},
 #endif
@@ -1596,3 +1618,53 @@ static void APP_AutoStartCb
 /*==================================================================================================
 Private debug functions
 ==================================================================================================*/
+
+/* Print: "<msg> from <IP> type CON/NON <label>= <count>" */
+static void APP_PrintTmrInfo(coapSession_t *pSession, const char *msg,
+                             const char *label, uint32_t count)
+{
+  char addrStr[INET6_ADDRSTRLEN];
+
+  /* Convert the sender's IPv6 address to text */
+  ntop(AF_INET6, (ipAddr_t*)&pSession->remoteAddrStorage.ss_addr, addrStr, INET6_ADDRSTRLEN);
+
+  /* Show the message type (CON or NON) and the count */
+  shell_printf("%s from %s type %s %s= %u\r\n", msg, addrStr,
+               (pSession->msgType == gCoapConfirmable_c) ? "CON" : "NON",
+               label, count);
+}
+
+/* Send an ACK only if the request was CON.
+   The received session closes by itself after the callback ends*/
+static void APP_ReplyIfCon(coapSessionStatus_t status, coapSession_t *pSession)
+{
+  if ((pSession->msgType == gCoapConfirmable_c) && (status != gCoapFailure_c))
+  {
+    COAP_Send(pSession, gCoapMsgTypeAckSuccessChanged_c, NULL, 0);
+  }
+}
+
+/* /stopTmr : stop the leader timer, but keep the count value */
+static void APP_CoapStopTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
+	TMR_StopTimer(mTeamTimerId);
+	APP_PrintTmrInfo(pSession, "Timer stopped", "Count", mTeamCounter);
+	APP_ReplyIfCon(sessionStatus, pSession);
+}
+
+
+/* /startTmr : start the leader timer and reset the count to 0 */
+static void APP_CoapStartTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
+	mTeamCounter   = 0;  /* Always begin from zero */
+	TMR_StartIntervalTimer(mTeamTimerId, APP_COUNTER_PERIOD_MS, APP_TeamTimerCb, NULL);
+	APP_PrintTmrInfo(pSession, "Timer started", "starting Count", mTeamCounter);
+	APP_ReplyIfCon(sessionStatus, pSession);
+}
+
+
+/* /restartTmr : start the leader timer and continue from the last count */
+static void APP_CoapRestartTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
+	TMR_StartIntervalTimer(mTeamTimerId, APP_COUNTER_PERIOD_MS, APP_TeamTimerCb, NULL);
+	APP_PrintTmrInfo(pSession, "Timer started", "starting Count", mTeamCounter);
+	APP_ReplyIfCon(sessionStatus, pSession);
+}
+
