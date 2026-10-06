@@ -386,7 +386,10 @@ void Stack_to_APP_Handler
             gEnable802154TxLed = TRUE;
 
             /* The node is attached to the network: start the periodic counter requests. */
-            APP_StartCounterRequests();
+			if (APP_InitLeaderAddr())
+			{
+				APP_StartCounterRequests();
+			}
 
             /* Uncomment to register multicast address */
             //IP_IF_AddMulticastGroup6(gIpIfSlp0_c, &mCastGroup);
@@ -582,27 +585,33 @@ static void APP_RequestTimerCb(void *param)
  * Returns TRUE when the conversion succeeds. */
 static bool_t APP_InitLeaderAddr(void)
 {
-    /* Local writable copy: pton() takes a non-const char pointer. */
-    char aAddrTxt[] = APP_LEADER_ADDR_STR;
     char aAddrCheck[INET6_ADDRSTRLEN];
-    bool_t status = FALSE;
+    ipAddr_t myMlEid;
 
-    /* pton() returns 1 on success. */
-    if (1 == pton(AF_INET6, aAddrTxt, &mLeaderAddr))
+    /* Mi ML-EID: solo se usa para sacar el prefijo mesh-local (primeros 8 bytes). */
+    if (!THR_GetIP6Addr(mThrInstanceId, gMLEIDAddr_c, &myMlEid, NULL))
     {
-        /* Echo the parsed address to verify the conversion. */
-        ntop(AF_INET6, &mLeaderAddr, aAddrCheck, INET6_ADDRSTRLEN);
-        shell_write("Leader address set to ");
-        shell_write(aAddrCheck);
-        shell_write("\r\n");
-        status = TRUE;
-    }
-    else
-    {
-        shell_write("Invalid Leader address\r\n");
+        shell_write("Could not get mesh-local prefix\r\n");
+        return FALSE;
     }
 
-    return status;
+    /* Prefijo + IID del ALOC del Leader (0000:00ff:fe00:fc00). */
+    FLib_MemCpy(&mLeaderAddr, &myMlEid, 8);
+    mLeaderAddr.addr8[8]  = 0x00;
+    mLeaderAddr.addr8[9]  = 0x00;
+    mLeaderAddr.addr8[10] = 0x00;
+    mLeaderAddr.addr8[11] = 0xFF;
+    mLeaderAddr.addr8[12] = 0xFE;
+    mLeaderAddr.addr8[13] = 0x00;
+    mLeaderAddr.addr8[14] = 0xFC;
+    mLeaderAddr.addr8[15] = 0x00;
+
+    ntop(AF_INET6, &mLeaderAddr, aAddrCheck, INET6_ADDRSTRLEN);
+    shell_write("Leader address set to ");
+    shell_write(aAddrCheck);
+    shell_write("\r\n");
+
+    return TRUE;
 }
 
 /* Sends a GET request for the counter resource to the Leader.
@@ -706,8 +715,6 @@ static void APP_InitCoapDemo
     NWKU_SetSockAddrInfo(&coapParams, NULL, AF_INET6, COAP_DEFAULT_PORT, 0, gIpIfSlp0_c);
     mAppCoapInstId = COAP_CreateInstance(NULL, &coapParams, (coapRegCbParams_t *)cbParams,
                                          NumberOfElements(cbParams));
-    /* Prepare the destination address used by the counter requests. */
-    (void)APP_InitLeaderAddr();
 }
 
 /*!*************************************************************************************************
