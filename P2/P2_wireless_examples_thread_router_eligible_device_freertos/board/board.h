@@ -24,6 +24,9 @@
 
 #define CORE_CLOCK_FREQ 47972352U
 
+/* I2C used by onboard accelerometer */
+#define BOARD_ACCEL_I2C_BASEADDR I2C1
+
 /* Connectivity */
 #ifndef APP_SERIAL_INTERFACE_TYPE
 #define APP_SERIAL_INTERFACE_TYPE (gSerialMgrLpuart_c)

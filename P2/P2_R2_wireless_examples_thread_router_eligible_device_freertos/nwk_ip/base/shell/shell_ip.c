@@ -23,6 +23,7 @@ Include Files
 
 #if THREAD_USE_SHELL
 #include "shell_ip.h"
+
 #include "app_stack_config.h"
 #include "stack_config.h"
 #include "app_init.h"
@@ -3940,11 +3941,22 @@ static int8_t SHELL_CoapSend
                 }
             }
             /* Send CoAP message */
-            FLib_MemCpy(&pCoapSession->remoteAddrStorage.ss_addr, &destAddr, sizeof(ipAddr_t));
+            /* Send CoAP message */
+            FLib_MemCpy(
+                &pCoapSession->remoteAddrStorage.ss_addr,
+                &destAddr,
+                sizeof(ipAddr_t));
+
             pCoapSession->code = requestCode;
             pCoapSession->msgType = requestType;
+
             COAP_SetCallback(pCoapSession, SHELL_CoapAckReceive);
-            COAP_Send(pCoapSession, gCoapMsgTypeUseSessionValues_c, pCoapPayload, coapPayloadSize);
+
+            COAP_Send(
+                pCoapSession,
+                gCoapMsgTypeUseSessionValues_c,
+                pCoapPayload,
+                coapPayloadSize);
 
             MEM_BufferFree(pCoapPayload);
         }

@@ -82,6 +82,10 @@ Private macros
 
 /* define the URI path team 4 */
 #define APP_TEAM_URI_PATH    "/team4"
+/* define the URI path accel  */
+#define APP_ACCEL_URI_PATH    "/accel"
+
+
 
 // TMR URI PATH
 #define APP_STOP_MY_TMR_URI_PATH                "/stopMyTmr"
@@ -146,6 +150,9 @@ static void APP_CoapTempCb(coapSessionStatus_t sessionStatus, uint8_t *pData, co
 static void APP_CoapSinkCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void App_RestoreLeaderLed(uint8_t *param);
 
+static void APP_CoapAccelRxCb(coapSessionStatus_t sessionStatus,uint8_t *pData,coapSession_t *pSession,uint32_t dataLen);
+
+
 /* Receives the Leader's reply to the counter request. */
 static void APP_CoapCounterReplyCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 
@@ -158,11 +165,16 @@ static void APP_StartCounterRequests(void);
 /* Sends one GET request for the counter resource to the Leader. */
 static void APP_SendCounterRequest(ipAddr_t *pServerAddr, coapMessageTypes_t msgType);
 
+/* Part 3 - Accelerometer response processing */
+static void APP_UpdateAccelLed(int16_t x, int16_t y, int16_t z);
+
 // TMR Callbacks
 static void APP_CoapStopMyTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void APP_CoapRestartTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void APP_CoapStartTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void APP_CoapStopTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
+
+
 
 
 #if LARGE_NETWORK
@@ -183,6 +195,9 @@ const coapUriPath_t gAPP_SINK_URI_PATH = {SizeOfString(APP_SINK_URI_PATH), (uint
 
 /* struct of the URI path for team 4. */
 const coapUriPath_t gAPP_TEAM_URI_PATH = {SizeOfString(APP_TEAM_URI_PATH), (uint8_t *)APP_TEAM_URI_PATH};
+
+/*struct of the URI path for team 4. */
+const coapUriPath_t gAPP_ACCEL_URI_PATH ={SizeOfString(APP_ACCEL_URI_PATH),(uint8_t *)APP_ACCEL_URI_PATH};
 
 /* Type of the last request sent; used to label the printed reply. */
 static coapMessageTypes_t mLastRequestType = gCoapConfirmable_c;
@@ -541,6 +556,84 @@ void App_RestoreLeaderLedCb
 Private functions
 ==================================================================================================*/
 
+/* Part 3 - Update RGB LED according to dominant accelerometer axis
+ *
+ * X -> Green
+ * Y -> Magenta
+ * Z -> Cyan
+ */
+static void APP_UpdateAccelLed(int16_t x, int16_t y, int16_t z)
+{
+    int32_t absX;
+    int32_t absY;
+    int32_t absZ;
+    int32_t maxAxis;
+
+    uint8_t redValue   = 0;
+    uint8_t greenValue = 0;
+    uint8_t blueValue  = 0;
+
+    absX = (int32_t)x;
+    absY = (int32_t)y;
+    absZ = (int32_t)z;
+
+    if (absX < 0)
+    {
+        absX = -absX;
+    }
+
+    if (absY < 0)
+    {
+        absY = -absY;
+    }
+
+    if (absZ < 0)
+    {
+        absZ = -absZ;
+    }
+
+    maxAxis = absX;
+
+    if (absY > maxAxis)
+    {
+        maxAxis = absY;
+    }
+
+    if (absZ > maxAxis)
+    {
+        maxAxis = absZ;
+    }
+
+    /* X -> Green */
+    if (absX == maxAxis)
+    {
+        greenValue = 255;
+    }
+
+    /* Y -> Magenta */
+    if (absY == maxAxis)
+    {
+        redValue  = 255;
+        blueValue = 255;
+    }
+
+    /* Z -> Cyan */
+    if (absZ == maxAxis)
+    {
+        greenValue = 255;
+        blueValue  = 255;
+    }
+
+#if gLedRgbEnabled_d
+    Led_UpdateRgbState(redValue, greenValue, blueValue);
+    App_UpdateStateLeds(gDeviceState_AppLedRgb_c);
+#endif
+}
+
+
+
+
+
 /* Starts the periodic counter requests. The timer is reserved only once. */
 static void APP_StartCounterRequests(void)
 {
@@ -559,6 +652,8 @@ static void APP_StartCounterRequests(void)
         shell_write("Request timer allocation failed\r\n");
     }
 }
+
+
 
 
 /* Executed in the application thread task: sends one CON request for the counter. */
@@ -701,6 +796,7 @@ static void APP_InitCoapDemo
 {
     coapRegCbParams_t cbParams[] =  {{APP_CoapLedCb,  (coapUriPath_t *)&gAPP_LED_URI_PATH},
                                      {APP_CoapTempCb, (coapUriPath_t *)&gAPP_TEMP_URI_PATH},
+									 {APP_CoapAccelRxCb, (coapUriPath_t *)&gAPP_ACCEL_URI_PATH},
 									 {APP_CoapStopMyTmrCb, (coapUriPath_t*)&gAPP_STOP_MY_TMR_URI_PATH},
 									 {APP_CoapStopTmrRxCb, (coapUriPath_t*)&gAPP_STOP_TMR_URI_PATH},
 									 {APP_CoapStartTmrRxCb, (coapUriPath_t*)&gAPP_START_TMR_URI_PATH},
@@ -1725,6 +1821,71 @@ static void APP_ReplyIfCon(coapSessionStatus_t status, coapSession_t *pSession)
     COAP_Send(pSession, gCoapMsgTypeAckSuccessChanged_c, NULL, 0);
   }
 }
+
+static void APP_CoapAccelRxCb
+(
+    coapSessionStatus_t sessionStatus,
+    uint8_t *pData,
+    coapSession_t *pSession,
+    uint32_t dataLen
+)
+{
+    int16_t xyz[3];
+    char addrStr[INET6_ADDRSTRLEN];
+    ipAddr_t remoteAddr;
+
+    if (sessionStatus == gCoapFailure_c)
+    {
+        return;
+    }
+
+    if ((NULL == pData) || (dataLen != sizeof(xyz)))
+    {
+        return;
+    }
+
+    FLib_MemCpy(
+        xyz,
+        pData,
+        sizeof(xyz));
+
+    FLib_MemCpy(
+        &remoteAddr,
+        &pSession->remoteAddrStorage.ss_addr,
+        sizeof(ipAddr_t));
+
+    ntop(
+        AF_INET6,
+        &remoteAddr,
+        addrStr,
+        INET6_ADDRSTRLEN);
+
+    shell_printf(
+        "X=%d Y=%d Z=%d from IPv6 address: %s type %s\r\n",
+        xyz[0],
+        xyz[1],
+        xyz[2],
+        addrStr,
+        (pSession->msgType == gCoapConfirmable_c) ? "CON" : "NON");
+
+    APP_UpdateAccelLed(
+        xyz[0],
+        xyz[1],
+        xyz[2]);
+
+    /* If R1 sent this notification as CON, acknowledge it */
+    APP_ReplyIfCon(
+        sessionStatus,
+        pSession);
+}
+
+
+
+
+
+
+
+
 
 /* /stopMyTmr : stop the local timer that sends requests to the leader */
 static void APP_CoapStopMyTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){

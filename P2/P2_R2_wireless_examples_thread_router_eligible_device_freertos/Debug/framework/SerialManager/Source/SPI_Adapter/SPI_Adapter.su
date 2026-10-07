@@ -1,5 +1,5 @@
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/core_cm0plus.h:804:22:NVIC_SetPriority	16	static
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\drivers/fsl_dspi.h:941:24:DSPI_MasterGetFormattedCommand	0	static
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/core_cm0plus.h:804:22:NVIC_SetPriority	16	static
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\drivers/fsl_dspi.h:941:24:DSPI_MasterGetFormattedCommand	0	static
 ../framework/SerialManager/Source/SPI_Adapter/SPI_Adapter.c:757:13:Spi_WriteData	0	static
 ../framework/SerialManager/Source/SPI_Adapter/SPI_Adapter.c:782:15:Spi_SlaveTransmitCompleted	0	static
 ../framework/SerialManager/Source/SPI_Adapter/SPI_Adapter.c:810:13:Spi_FillTxFifoSlave	0	static

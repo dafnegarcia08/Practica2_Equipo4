@@ -66,7 +66,7 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := P2_R2_wireless_examples_thread_router_eligible_device_freertos
+BUILD_ARTIFACT_NAME := P2_R2_wireless_examples_thread_router_eligible_device_freertos2
 BUILD_ARTIFACT_EXTENSION := axf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
@@ -78,24 +78,24 @@ all:
 	+@$(MAKE) --no-print-directory main-build && $(MAKE) --no-print-directory post-build
 
 # Main-build Target
-main-build: P2_R2_wireless_examples_thread_router_eligible_device_freertos.axf
+main-build: P2_R2_wireless_examples_thread_router_eligible_device_freertos2.axf
 
 # Tool invocations
-P2_R2_wireless_examples_thread_router_eligible_device_freertos.axf: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
+P2_R2_wireless_examples_thread_router_eligible_device_freertos2.axf: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -L"C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\libs" -Xlinker -Map="P2_R2_wireless_examples_thread_router_eligible_device_freertos.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m0plus -mthumb -T MKW41Z512xxx4_connectivity.ld -L ../source -o "P2_R2_wireless_examples_thread_router_eligible_device_freertos.axf" $(OBJS) $(USER_OBJS) $(LIBS) -lm -lc -lgcc -lnosys -l_crypto_m0 -l802.15.4_mac_thr_cm0 -l_thread_cm0
+	arm-none-eabi-gcc -L"C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\libs" -Xlinker -Map="P2_R2_wireless_examples_thread_router_eligible_device_freertos2.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m0plus -mthumb -T MKW41Z512xxx4_connectivity.ld -L ../source -o "P2_R2_wireless_examples_thread_router_eligible_device_freertos2.axf" $(OBJS) $(USER_OBJS) $(LIBS) -lm -lc -lgcc -lnosys -l_crypto_m0 -l802.15.4_mac_thr_cm0 -l_thread_cm0
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) P2_R2_wireless_examples_thread_router_eligible_device_freertos.axf
+	-$(RM) P2_R2_wireless_examples_thread_router_eligible_device_freertos2.axf
 	-@echo ' '
 
 post-build:
 	-@echo 'Performing post-build steps'
-	-arm-none-eabi-size "P2_R2_wireless_examples_thread_router_eligible_device_freertos.axf"; # arm-none-eabi-objcopy -v -O binary "P2_R2_wireless_examples_thread_router_eligible_device_freertos.axf" "P2_R2_wireless_examples_thread_router_eligible_device_freertos.bin" ; # checksum -p MKW41Z512xxx4 -d "P2_R2_wireless_examples_thread_router_eligible_device_freertos.bin";
+	-arm-none-eabi-size "P2_R2_wireless_examples_thread_router_eligible_device_freertos2.axf"; # arm-none-eabi-objcopy -v -O binary "P2_R2_wireless_examples_thread_router_eligible_device_freertos2.axf" "P2_R2_wireless_examples_thread_router_eligible_device_freertos2.bin" ; # checksum -p MKW41Z512xxx4 -d "P2_R2_wireless_examples_thread_router_eligible_device_freertos2.bin";
 	-@echo ' '
 
 .PHONY: all clean dependents main-build post-build

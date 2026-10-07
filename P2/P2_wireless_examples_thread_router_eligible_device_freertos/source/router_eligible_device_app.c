@@ -18,6 +18,11 @@ Include Files
 #include "EmbeddedTypes.h"
 #include <string.h>
 
+/*I2C Accel */
+#include "fsl_i2c.h"
+#include "board.h"
+#include "pin_mux.h"
+
 /* FSL Framework */
 #include "shell.h"
 #include "Keyboard.h"
@@ -83,6 +88,9 @@ Private macros
 /* define the URI path team 4 */
 #define APP_TEAM_URI_PATH    "/team4"
 
+/* Accelerometer CoAP resource */
+#define APP_ACCEL_URI_PATH    "/accel"
+
 // TMR URI PATH
 #define APP_STOP_MY_TMR_URI_PATH                "/stopMyTmr"
 #define APP_STOP_TMR_URI_PATH                   "/stopTmr"
@@ -116,6 +124,11 @@ static bool_t mJoiningIsAppInitiated = FALSE;
  * and read by the CoAP callback, so the compiler must not cache it. */
 static volatile uint8_t mTeamCounter = 0;
 
+/* I2C address of the accelerometer once detected */
+static uint8_t mAccelAddr = 0;
+
+
+
 /*==================================================================================================
 Private prototypes
 ==================================================================================================*/
@@ -140,8 +153,24 @@ static void APP_CoapTempCb(coapSessionStatus_t sessionStatus, uint8_t *pData, co
 static void APP_CoapSinkCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void App_RestoreLeaderLed(uint8_t *param);
 
+
+
+static void APP_SendAccelToRequester(coapSession_t *pRequest,int16_t *pXyz);
 /* callback prototype */
 static void APP_CoapTeamCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
+
+/* Accelerometer functions */
+static bool_t APP_AccelWrite(uint8_t reg, uint8_t value);
+
+static bool_t APP_AccelRead(uint8_t addr,uint8_t reg,uint8_t *pBuf,uint32_t size);
+
+static bool_t APP_AccelInit(void);
+
+static bool_t APP_AccelGetXYZ(int16_t *pXyz);
+
+static void APP_CoapAccelCb(coapSessionStatus_t sessionStatus,uint8_t *pData,coapSession_t *pSession,uint32_t dataLen);
+
+
 
 // TMR Callbacks
 static void APP_CoapStopTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
@@ -167,6 +196,9 @@ const coapUriPath_t gAPP_SINK_URI_PATH = {SizeOfString(APP_SINK_URI_PATH), (uint
 
 /* struct of the URI path for team 4. */
 const coapUriPath_t gAPP_TEAM_URI_PATH = {SizeOfString(APP_TEAM_URI_PATH), (uint8_t *)APP_TEAM_URI_PATH};
+
+/* CoAP URI object for accelerometer */
+const coapUriPath_t gAPP_ACCEL_URI_PATH ={SizeOfString(APP_ACCEL_URI_PATH),(uint8_t *)APP_ACCEL_URI_PATH};
 
 /* ID of the interval timer that updates the counter. */
 static tmrTimerID_t mTeamTimerId = gTmrInvalidTimerID_c;
@@ -247,6 +279,14 @@ void APP_Init
     {
         /* Initialize CoAP demo */
         APP_InitCoapDemo();
+        /* Initialize board accelerometer */
+        if (!APP_AccelInit()){
+        	shell_write("Accelerometer initialization failed\r\n");
+        }
+        else
+        {
+            shell_write("Accelerometer initialized\r\n");
+        }
 
 #if USE_TEMPERATURE_SENSOR
         /* Initialize Temperature sensor/ADC module*/
@@ -518,6 +558,279 @@ void App_RestoreLeaderLedCb
 Private functions
 ==================================================================================================*/
 
+/*Accelerometer*/
+static bool_t APP_AccelWrite(uint8_t reg, uint8_t value)
+{
+    i2c_master_transfer_t xfer = {0};
+
+    xfer.slaveAddress   = mAccelAddr;
+    xfer.direction      = kI2C_Write;
+    xfer.subaddress     = reg;
+    xfer.subaddressSize = 1;
+    xfer.data           = &value;
+    xfer.dataSize       = 1;
+    xfer.flags          = kI2C_TransferDefaultFlag;
+
+    return (I2C_MasterTransferBlocking(
+                BOARD_ACCEL_I2C_BASEADDR,
+                &xfer) == kStatus_Success);
+}
+
+
+static bool_t APP_AccelRead(
+    uint8_t addr,
+    uint8_t reg,
+    uint8_t *pBuf,
+    uint32_t size)
+{
+    i2c_master_transfer_t xfer = {0};
+
+    xfer.slaveAddress   = addr;
+    xfer.direction      = kI2C_Read;
+    xfer.subaddress     = reg;
+    xfer.subaddressSize = 1;
+    xfer.data           = pBuf;
+    xfer.dataSize       = size;
+    xfer.flags          = kI2C_TransferDefaultFlag;
+
+    return (I2C_MasterTransferBlocking(
+                BOARD_ACCEL_I2C_BASEADDR,
+                &xfer) == kStatus_Success);
+}
+
+
+static bool_t APP_AccelInit(void)
+{
+    const uint8_t addrList[] =
+    {
+        0x1CU,
+        0x1DU,
+        0x1EU,
+        0x1FU
+    };
+
+    i2c_master_config_t cfg;
+    uint8_t whoAmI = 0;
+    uint8_t i;
+
+    mAccelAddr = 0;
+
+    /*
+     * This project already contains the correct I2C pin configuration:
+     * PTC2 = I2C1_SCL
+     * PTC3 = I2C1_SDA
+     */
+    BOARD_InitI2C();
+
+    I2C_MasterGetDefaultConfig(&cfg);
+    cfg.baudRate_Bps = 100000U;
+
+    I2C_MasterInit(
+        BOARD_ACCEL_I2C_BASEADDR,
+        &cfg,
+        BOARD_GetI2cClock(1U));
+
+    /* Look for FXOS8700 / MMA8451 */
+    for (i = 0; i < sizeof(addrList); i++)
+    {
+        if (APP_AccelRead(
+                addrList[i],
+                0x0D,
+                &whoAmI,
+                1) &&
+            ((whoAmI == 0xC7U) ||
+             (whoAmI == 0x1AU)))
+        {
+            mAccelAddr = addrList[i];
+            break;
+        }
+    }
+
+    if (mAccelAddr == 0)
+    {
+        shell_write("Accelerometer not found\r\n");
+        return FALSE;
+    }
+
+    /* Standby */
+    if (!APP_AccelWrite(0x2A, 0x00))
+    {
+        return FALSE;
+    }
+
+    /* +/- 4g */
+    if (!APP_AccelWrite(0x0E, 0x01))
+    {
+        return FALSE;
+    }
+
+    /* Active */
+    if (!APP_AccelWrite(0x2A, 0x0D))
+    {
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+
+static bool_t APP_AccelGetXYZ(int16_t *pXyz)
+{
+    uint8_t buf[7];
+
+    if ((mAccelAddr == 0) ||
+        !APP_AccelRead(mAccelAddr, 0x00, buf, 7))
+    {
+        return FALSE;
+    }
+
+    pXyz[0] =
+        ((int16_t)((buf[1] << 8) | buf[2])) / 4;
+
+    pXyz[1] =
+        ((int16_t)((buf[3] << 8) | buf[4])) / 4;
+
+    pXyz[2] =
+        ((int16_t)((buf[5] << 8) | buf[6])) / 4;
+
+    return TRUE;
+}
+
+static void APP_SendAccelToRequester
+(
+    coapSession_t *pRequest,
+    int16_t *pXyz
+)
+{
+    coapSession_t *pMySession;
+
+    pMySession = COAP_OpenSession(mAppCoapInstId);
+
+    if (NULL == pMySession)
+    {
+        return;
+    }
+
+    /*
+     * Destination = node that requested /accel.
+     */
+    FLib_MemCpy(
+        &pMySession->remoteAddrStorage.ss_addr,
+        &pRequest->remoteAddrStorage.ss_addr,
+        sizeof(ipAddr_t));
+
+    /*
+     * Preserve request type:
+     * CON request -> send CON notification
+     * NON request -> send NON notification
+     */
+    pMySession->msgType = pRequest->msgType;
+
+    /*
+     * This is a new message carrying XYZ to R2.
+     */
+    pMySession->code = gCoapPOST_c;
+
+    COAP_SetUriPath(
+        pMySession,
+        (coapUriPath_t *)&gAPP_ACCEL_URI_PATH);
+
+    COAP_Send(
+        pMySession,
+        gCoapMsgTypeUseSessionValues_c,
+        (uint8_t *)pXyz,
+        3U * sizeof(int16_t));
+}
+
+
+
+
+
+
+static void APP_CoapAccelCb
+(
+    coapSessionStatus_t sessionStatus,
+    uint8_t *pData,
+    coapSession_t *pSession,
+    uint32_t dataLen
+)
+{
+    static int16_t xyz[3];
+
+    char addrStr[INET6_ADDRSTRLEN];
+    ipAddr_t remoteAddr;
+
+    bool_t isCon =
+        (pSession->msgType == gCoapConfirmable_c);
+
+    (void)pData;
+    (void)dataLen;
+
+    if (sessionStatus == gCoapFailure_c)
+    {
+        return;
+    }
+
+    /* /accel only accepts GET */
+    if (pSession->code != gCoapGET_c)
+    {
+        return;
+    }
+
+    FLib_MemCpy(
+        &remoteAddr,
+        &pSession->remoteAddrStorage.ss_addr,
+        sizeof(ipAddr_t));
+
+    ntop(
+        AF_INET6,
+        &remoteAddr,
+        addrStr,
+        INET6_ADDRSTRLEN);
+
+    shell_printf(
+        "%s GET /accel from %s\r\n",
+        isCon ? "CON" : "NON",
+        addrStr);
+
+    if (!APP_AccelGetXYZ(xyz))
+    {
+        shell_write("Accelerometer read failed\r\n");
+
+        if (isCon)
+        {
+            COAP_Send(
+                pSession,
+                gCoapMsgTypeAckSuccessChanged_c,
+                NULL,
+                0);
+        }
+
+        return;
+    }
+
+    shell_printf(
+        "Accelerometer: X=%d Y=%d Z=%d\r\n",
+        xyz[0],
+        xyz[1],
+        xyz[2]);
+
+    APP_SendAccelToRequester(
+        pSession,
+        xyz);
+
+    if (isCon)
+    {
+        COAP_Send(
+            pSession,
+            gCoapMsgTypeEmptyAck_c,
+            NULL,
+            0);
+    }
+}
+
+
+
 
 /* CoAP callback for the team URI. The stack invokes it whenever a request
  * addressed to "/team4" is received. */
@@ -605,6 +918,7 @@ static void APP_InitCoapDemo
     coapRegCbParams_t cbParams[] =  {{APP_CoapLedCb,  (coapUriPath_t *)&gAPP_LED_URI_PATH},
                                      {APP_CoapTempCb, (coapUriPath_t *)&gAPP_TEMP_URI_PATH},
 									 {APP_CoapTeamCb, (coapUriPath_t*)&gAPP_TEAM_URI_PATH}, // Register the callback in the CoAP callback array
+									 {APP_CoapAccelCb, (coapUriPath_t *)&gAPP_ACCEL_URI_PATH},// Part 3 - Accelerometer
 									 {APP_CoapStopTmrCb, (coapUriPath_t*)&gAPP_STOP_TMR_URI_PATH},
 									 {APP_CoapStartTmrCb, (coapUriPath_t*)&gAPP_START_TMR_URI_PATH},
 									 {APP_CoapRestartTmrCb, (coapUriPath_t*)&gAPP_RESTART_TMR_URI_PATH},

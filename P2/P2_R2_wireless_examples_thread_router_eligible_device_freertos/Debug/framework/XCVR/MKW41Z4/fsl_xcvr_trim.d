@@ -1,45 +1,45 @@
 framework/XCVR/MKW41Z4/fsl_xcvr_trim.o \
  framework/XCVR/MKW41Z4/fsl_xcvr_trim.d: \
  ../framework/XCVR/MKW41Z4/fsl_xcvr_trim.c \
- C:/Redes_ITESO/Practica2_Equipo4/P2/P2_R2_wireless_examples_thread_router_eligible_device_freertos/source/config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_stack_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/thread_stack_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_framework_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_mac_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/fsl_device_registers.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/MKW41Z4.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/core_cm0plus.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/core_cmInstr.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/cmsis_gcc.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/core_cmFunc.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/system_MKW41Z4.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/MKW41Z4_features.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\drivers/fsl_common.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\drivers/fsl_clock.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\drivers/fsl_common.h \
+ C:/Users/dafga/Documents/MCUXpressoIDE_25.6.136/workspace/P2_R2_wireless_examples_thread_router_eligible_device_freertos2/source/config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_stack_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/stack_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/thread_stack_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_framework_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_mac_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/fsl_device_registers.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/MKW41Z4.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/core_cm0plus.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/core_cmInstr.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/cmsis_gcc.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/core_cmFunc.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/system_MKW41Z4.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/MKW41Z4_features.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\drivers/fsl_common.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\drivers/fsl_clock.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\drivers/fsl_common.h \
  ../framework/XCVR/MKW41Z4/fsl_xcvr.h \
  ../framework/XCVR/MKW41Z4/fsl_xcvr_trim.h \
  ../framework/XCVR/MKW41Z4/dbg_ram_capture.h
-C:/Redes_ITESO/Practica2_Equipo4/P2/P2_R2_wireless_examples_thread_router_eligible_device_freertos/source/config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_stack_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/thread_stack_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_framework_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_mac_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/fsl_device_registers.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/MKW41Z4.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/core_cm0plus.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/core_cmInstr.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/cmsis_gcc.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/core_cmFunc.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/system_MKW41Z4.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\CMSIS/MKW41Z4_features.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\drivers/fsl_common.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\drivers/fsl_clock.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_R2_wireless_examples_thread_router_eligible_device_freertos\drivers/fsl_common.h:
+C:/Users/dafga/Documents/MCUXpressoIDE_25.6.136/workspace/P2_R2_wireless_examples_thread_router_eligible_device_freertos2/source/config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_stack_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/stack_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/thread_stack_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_framework_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_mac_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/fsl_device_registers.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/MKW41Z4.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/core_cm0plus.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/core_cmInstr.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/cmsis_gcc.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/core_cmFunc.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/system_MKW41Z4.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\CMSIS/MKW41Z4_features.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\drivers/fsl_common.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\drivers/fsl_clock.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_R2_wireless_examples_thread_router_eligible_device_freertos2\drivers/fsl_common.h:
 ../framework/XCVR/MKW41Z4/fsl_xcvr.h:
 ../framework/XCVR/MKW41Z4/fsl_xcvr_trim.h:
 ../framework/XCVR/MKW41Z4/dbg_ram_capture.h:

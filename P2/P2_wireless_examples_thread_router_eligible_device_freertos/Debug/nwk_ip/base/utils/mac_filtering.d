@@ -1,84 +1,84 @@
 nwk_ip/base/utils/mac_filtering.o nwk_ip/base/utils/mac_filtering.d: \
  ../nwk_ip/base/utils/mac_filtering.c \
- C:/Redes_ITESO/Practica2_Equipo4/P2/P2_wireless_examples_thread_router_eligible_device_freertos/source/config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_stack_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/thread_stack_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_framework_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_mac_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Panic\Interface/Panic.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\common/EmbeddedTypes.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\MemManager\Interface/MemManager.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Lists/GenericList.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_filtering_cfg.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_filtering.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_abs_types.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_types.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_abs_types.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/nvm_adapter.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_manager_if.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface/network_utils.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Messaging\Interface/Messaging.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction_config.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/sixlowpan_ib.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_abs_802154.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/nd.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/nd_tables.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\FunctionLib/FunctionLib.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/ip_if_management.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/ip.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\TimersManager\Interface/TimersManager.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/ip6.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_cfg.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/event_manager.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/ip6.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_attributes.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_types.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_utils.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_network.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_attributes.h \
- C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_meshcop.h
-C:/Redes_ITESO/Practica2_Equipo4/P2/P2_wireless_examples_thread_router_eligible_device_freertos/source/config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_stack_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/thread_stack_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_framework_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\app\config/app_mac_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Panic\Interface/Panic.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\common/EmbeddedTypes.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\MemManager\Interface/MemManager.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Lists/GenericList.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_filtering_cfg.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_filtering.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_abs_types.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_types.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_abs_types.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/nvm_adapter.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_manager_if.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/stack_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface/network_utils.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\Messaging\Interface/Messaging.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\OSAbstraction\Interface/fsl_os_abstraction_config.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/sixlowpan_ib.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\base\interface/mac_abs_802154.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/nd.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/nd_tables.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\FunctionLib/FunctionLib.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/ip_if_management.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/ip.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\framework\TimersManager\Interface/TimersManager.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/ip6.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_cfg.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/event_manager.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\modules/ip6.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_attributes.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_types.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_utils.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_network.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_attributes.h:
-C:\Redes_ITESO\Practica2_Equipo4\P2\P2_wireless_examples_thread_router_eligible_device_freertos\nwk_ip\core\interface\thread/thread_meshcop.h:
+ C:/Users/dafga/Documents/MCUXpressoIDE_25.6.136/workspace/P2_wireless_examples_thread_router_eligible_device_freertos2/source/config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_stack_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/stack_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/thread_stack_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_framework_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_mac_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\Panic\Interface/Panic.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\common/EmbeddedTypes.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\MemManager\Interface/MemManager.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\Lists/GenericList.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_filtering_cfg.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_filtering.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_abs_types.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_types.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_abs_types.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/nvm_adapter.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/stack_manager_if.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/stack_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface/network_utils.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\Messaging\Interface/Messaging.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\OSAbstraction\Interface/fsl_os_abstraction.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\OSAbstraction\Interface/fsl_os_abstraction_config.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/sixlowpan_ib.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_abs_802154.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/nd.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/nd_tables.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\FunctionLib/FunctionLib.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/ip_if_management.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/ip.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\TimersManager\Interface/TimersManager.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/ip6.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_cfg.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/event_manager.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/ip6.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_attributes.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_types.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_utils.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_network.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_attributes.h \
+ C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_meshcop.h
+C:/Users/dafga/Documents/MCUXpressoIDE_25.6.136/workspace/P2_wireless_examples_thread_router_eligible_device_freertos2/source/config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_stack_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/stack_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/thread_stack_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_framework_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\app\config/app_mac_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\Panic\Interface/Panic.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\common/EmbeddedTypes.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\MemManager\Interface/MemManager.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\Lists/GenericList.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_filtering_cfg.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_filtering.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_abs_types.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_types.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_abs_types.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/nvm_adapter.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/stack_manager_if.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/stack_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface/network_utils.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\Messaging\Interface/Messaging.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\OSAbstraction\Interface/fsl_os_abstraction.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\OSAbstraction\Interface/fsl_os_abstraction_config.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/sixlowpan_ib.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\base\interface/mac_abs_802154.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/nd.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/nd_tables.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\FunctionLib/FunctionLib.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/ip_if_management.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/ip.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\framework\TimersManager\Interface/TimersManager.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/ip6.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_cfg.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/event_manager.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\modules/ip6.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_attributes.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_types.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_utils.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_network.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_attributes.h:
+C:\Users\dafga\Documents\MCUXpressoIDE_25.6.136\workspace\P2_wireless_examples_thread_router_eligible_device_freertos2\nwk_ip\core\interface\thread/thread_meshcop.h:
