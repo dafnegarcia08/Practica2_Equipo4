@@ -96,6 +96,7 @@ Private macros
 #define APP_STOP_TMR_URI_PATH                   "/stopTmr"
 #define APP_START_TMR_URI_PATH					"/startTmr"
 #define APP_RESTART_TMR_URI_PATH           		"/restartTmr"
+#define APP_CHANGE_TIME_URI_PATH           		"/changeTime"
 
 /* Counter limits and update period for the team URI resource. */
 #define APP_COUNTER_MAX          150
@@ -153,6 +154,8 @@ static void APP_CoapTempCb(coapSessionStatus_t sessionStatus, uint8_t *pData, co
 static void APP_CoapSinkCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void App_RestoreLeaderLed(uint8_t *param);
 
+static void APP_NotifyRequester(coapSession_t *pRequest,const coapUriPath_t *pUri);
+
 
 
 static void APP_SendAccelToRequester(coapSession_t *pRequest,int16_t *pXyz);
@@ -170,13 +173,13 @@ static bool_t APP_AccelGetXYZ(int16_t *pXyz);
 
 static void APP_CoapAccelCb(coapSessionStatus_t sessionStatus,uint8_t *pData,coapSession_t *pSession,uint32_t dataLen);
 
-
+static void APP_ReplyIfCon(coapSessionStatus_t status,coapSession_t *pSession);
 
 // TMR Callbacks
 static void APP_CoapStopTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void APP_CoapStartTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void APP_CoapRestartTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
-
+static void APP_CoapChangeTimeRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 
 #if LARGE_NETWORK
 static void APP_CoapResetToFactoryDefaultsCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
@@ -208,7 +211,7 @@ const coapUriPath_t gAPP_STOP_MY_TMR_URI_PATH = {SizeOfString(APP_STOP_MY_TMR_UR
 const coapUriPath_t gAPP_STOP_TMR_URI_PATH = {SizeOfString(APP_STOP_TMR_URI_PATH), (uint8_t *)APP_STOP_TMR_URI_PATH};
 const coapUriPath_t gAPP_START_TMR_URI_PATH = {SizeOfString(APP_START_TMR_URI_PATH), (uint8_t *)APP_START_TMR_URI_PATH};
 const coapUriPath_t gAPP_RESTART_TMR_URI_PATH = {SizeOfString(APP_RESTART_TMR_URI_PATH), (uint8_t *)APP_RESTART_TMR_URI_PATH};
-
+const coapUriPath_t gAPP_CHANGE_TIME_URI_PATH = {SizeOfString(APP_CHANGE_TIME_URI_PATH), (uint8_t *)APP_CHANGE_TIME_URI_PATH};
 
 #if LARGE_NETWORK
 const coapUriPath_t gAPP_RESET_URI_PATH = {SizeOfString(APP_RESET_TO_FACTORY_URI_PATH), (uint8_t *)APP_RESET_TO_FACTORY_URI_PATH};
@@ -875,14 +878,21 @@ static void APP_CoapTeamCb
 
         /* Reply on the same session so the stack can match it to the request.
          * The session is closed automatically after sending. */
-        COAP_Send(pSession, gCoapMsgTypeAckSuccessChanged_c, aPayload, sizeof(aPayload));
+	    APP_NotifyRequester(
+	        pSession,
+	        &gAPP_TEAM_URI_PATH);
+	    APP_ReplyIfCon(sessionStatus, pSession);
     }
     /* Non-confirmable request: log it, no ACK is sent. */
     else if (gCoapNonConfirmable_c == pSession->msgType)
     {
-        shell_write("NON instruction received from ");
-        shell_write(addrStr);
-        shell_write("\r\n");
+    	shell_write("NON instruction received from ");
+    	    shell_write(addrStr);
+    	    shell_write("\r\n");
+
+    	    APP_NotifyRequester(
+    	        pSession,
+    	        &gAPP_TEAM_URI_PATH);
     }
 }
 
@@ -1948,6 +1958,9 @@ static void APP_CoapNotifyAckCb(coapSessionStatus_t sessionStatus, uint8_t *pDat
     shell_printf("ACK received from %s\r\n", addrStr);
   }
 }
+
+
+
 
 
 /* Send the count to the node that made the request, with the SAME type (CON or NON).

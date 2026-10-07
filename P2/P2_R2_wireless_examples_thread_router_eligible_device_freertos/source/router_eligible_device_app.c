@@ -87,11 +87,14 @@ Private macros
 
 
 
+
 // TMR URI PATH
 #define APP_STOP_MY_TMR_URI_PATH                "/stopMyTmr"
 #define APP_STOP_TMR_URI_PATH                   "/stopTmr"
 #define APP_START_TMR_URI_PATH					"/startTmr"
 #define APP_RESTART_TMR_URI_PATH           		"/restartTmr"
+/* define the URI path change time  */
+#define APP_CHANGE_TIME_URI_PATH           		"/changeTime"
 
 /* ML-EID (ML64) of the Leader node, copied from "ifconfig" on the Leader.
  * It must be updated whenever the network is re-created, because the mesh-local
@@ -152,7 +155,7 @@ static void App_RestoreLeaderLed(uint8_t *param);
 
 static void APP_CoapAccelRxCb(coapSessionStatus_t sessionStatus,uint8_t *pData,coapSession_t *pSession,uint32_t dataLen);
 
-
+static void APP_CoapTeamRxCb(coapSessionStatus_t sessionStatus,uint8_t *pData,coapSession_t *pSession,uint32_t dataLen);
 /* Receives the Leader's reply to the counter request. */
 static void APP_CoapCounterReplyCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 
@@ -173,8 +176,7 @@ static void APP_CoapStopMyTmrCb(coapSessionStatus_t sessionStatus, uint8_t *pDat
 static void APP_CoapRestartTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void APP_CoapStartTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 static void APP_CoapStopTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
-
-
+static void APP_CoapChangeTimeRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen);
 
 
 #if LARGE_NETWORK
@@ -207,7 +209,7 @@ const coapUriPath_t gAPP_STOP_MY_TMR_URI_PATH = {SizeOfString(APP_STOP_MY_TMR_UR
 const coapUriPath_t gAPP_STOP_TMR_URI_PATH = {SizeOfString(APP_STOP_TMR_URI_PATH), (uint8_t *)APP_STOP_TMR_URI_PATH};
 const coapUriPath_t gAPP_START_TMR_URI_PATH = {SizeOfString(APP_START_TMR_URI_PATH), (uint8_t *)APP_START_TMR_URI_PATH};
 const coapUriPath_t gAPP_RESTART_TMR_URI_PATH = {SizeOfString(APP_RESTART_TMR_URI_PATH), (uint8_t *)APP_RESTART_TMR_URI_PATH};
-
+const coapUriPath_t gAPP_CHANGE_TIME_URI_PATH = {SizeOfString(APP_CHANGE_TIME_URI_PATH), (uint8_t *)APP_CHANGE_TIME_URI_PATH};
 
 #if LARGE_NETWORK
 const coapUriPath_t gAPP_RESET_URI_PATH = {SizeOfString(APP_RESET_TO_FACTORY_URI_PATH), (uint8_t *)APP_RESET_TO_FACTORY_URI_PATH};
@@ -796,11 +798,13 @@ static void APP_InitCoapDemo
 {
     coapRegCbParams_t cbParams[] =  {{APP_CoapLedCb,  (coapUriPath_t *)&gAPP_LED_URI_PATH},
                                      {APP_CoapTempCb, (coapUriPath_t *)&gAPP_TEMP_URI_PATH},
+									 {APP_CoapTeamRxCb, (coapUriPath_t *)&gAPP_TEAM_URI_PATH},
 									 {APP_CoapAccelRxCb, (coapUriPath_t *)&gAPP_ACCEL_URI_PATH},
 									 {APP_CoapStopMyTmrCb, (coapUriPath_t*)&gAPP_STOP_MY_TMR_URI_PATH},
 									 {APP_CoapStopTmrRxCb, (coapUriPath_t*)&gAPP_STOP_TMR_URI_PATH},
 									 {APP_CoapStartTmrRxCb, (coapUriPath_t*)&gAPP_START_TMR_URI_PATH},
 									 {APP_CoapRestartTmrRxCb, (coapUriPath_t*)&gAPP_RESTART_TMR_URI_PATH},
+									 {APP_CoapChangeTimeRxCb, (coapUriPath_t*)&gAPP_CHANGE_TIME_URI_PATH},
 #if LARGE_NETWORK
                                      {APP_CoapResetToFactoryDefaultsCb, (coapUriPath_t *)&gAPP_RESET_URI_PATH},
 #endif
@@ -1917,3 +1921,79 @@ static void APP_CoapRestartTmrRxCb(coapSessionStatus_t sessionStatus, uint8_t *p
   }
   APP_ReplyIfCon(sessionStatus, pSession);
 }
+
+
+static void APP_CoapChangeTimeRxCb(coapSessionStatus_t sessionStatus, uint8_t *pData, coapSession_t *pSession, uint32_t dataLen){
+  if ((NULL != pData) && (dataLen >= 1) && (pData[0] > 0))
+  {
+    uint32_t newPeriodMs = ((uint32_t)pData[0]-48)* 1000; // Convert to miliseconds
+
+    APP_PrintTmrInfo(pSession, "Change timer (seconds)", "Seconds ", pData[0]-48);
+
+    TMR_StopTimer(mRequestTimerId);
+    TMR_StartIntervalTimer(mRequestTimerId, newPeriodMs, APP_RequestTimerCb, NULL);
+  }
+  APP_ReplyIfCon(sessionStatus, pSession);
+}
+
+static void APP_CoapTeamRxCb
+(
+    coapSessionStatus_t sessionStatus,
+    uint8_t *pData,
+    coapSession_t *pSession,
+    uint32_t dataLen
+)
+{
+    char addrStr[INET6_ADDRSTRLEN];
+    ipAddr_t remoteAddr;
+
+    if (gCoapFailure_c == sessionStatus)
+    {
+        return;
+    }
+
+    if ((NULL == pData) || (dataLen < 1))
+    {
+        return;
+    }
+
+    FLib_MemCpy(
+        &remoteAddr,
+        &pSession->remoteAddrStorage.ss_addr,
+        sizeof(ipAddr_t));
+
+    ntop(
+        AF_INET6,
+        &remoteAddr,
+        addrStr,
+        INET6_ADDRSTRLEN);
+
+    shell_write("Counter = ");
+    shell_writeDec(pData[0]);
+
+    shell_write(" from ");
+    shell_write(addrStr);
+
+    shell_write(" type ");
+
+    if (pSession->msgType == gCoapConfirmable_c)
+    {
+        shell_write("CON");
+    }
+    else
+    {
+        shell_write("NON");
+    }
+
+    shell_write("\r\n");
+
+    /*
+     * If R1 sent this new notification as CON,
+     * acknowledge it.
+     * If it is NON, no ACK is sent.
+     */
+    APP_ReplyIfCon(
+        sessionStatus,
+        pSession);
+}
+
